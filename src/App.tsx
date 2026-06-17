@@ -35,12 +35,15 @@ export const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setModalLoading(true);
     if (showModal) {
+      setModalLoading(true);
       getUser(currentTodo?.userId || 0).then(user => {
         setModalLoading(false);
         setCurrentUser(user);
       });
+    } else {
+      setModalLoading(false);
+      setCurrentUser(null);
     }
   }, [showModal, currentTodo]);
 

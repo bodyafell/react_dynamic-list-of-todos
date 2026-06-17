@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Loader } from '../Loader';
 import { Todo } from '../../types/Todo';
 import { User } from '../../types/User';
@@ -49,16 +50,20 @@ export const TodoModal: React.FC<Props> = ({
             </p>
 
             <p className="block" data-cy="modal-user">
-              {/* <strong className="has-text-success">Done</strong> */}
-              {currentTodo?.completed ? (
-                <strong className="has-text-success">Done</strong>
-              ) : (
-                <strong className="has-text-danger">Planned</strong>
-              )}
+              <strong
+                className={classNames({
+                  'has-text-success': currentTodo?.completed,
+                  'has-text-danger': !currentTodo?.completed,
+                })}
+              >
+                {currentTodo?.completed ? 'Done' : 'Planned'}
+              </strong>
 
               {' by '}
 
-              <a href="mailto:Sincere@april.biz">{currentUser?.name}</a>
+              <a href={currentUser ? `mailto:${currentUser.email}` : undefined}>
+                {currentUser?.name}
+              </a>
             </p>
           </div>
         </div>
